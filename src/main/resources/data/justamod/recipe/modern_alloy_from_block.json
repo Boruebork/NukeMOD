@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "justamod:modern_alloy_block"
+    }
+  ],
+  "result": {
+    "id": "justamod:modern_alloy",
+    "count": 9
+  }
+}

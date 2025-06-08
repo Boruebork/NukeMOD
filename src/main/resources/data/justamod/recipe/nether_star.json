@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "D": {
+      "item": "minecraft:diamond_block"
+    }
+  },
+  "pattern": [
+    " D ",
+    "DND",
+    " D "
+  ],
+  "result":{
+    "count": 1,
+    "id": "minecraft:nether_star"
+  }
+}

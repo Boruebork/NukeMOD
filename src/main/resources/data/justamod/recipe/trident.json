@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "justamod:diamond_rod"
+    },
+    "N": {
+      "item": "justamod:neptunium"
+    }
+  },
+  "pattern": [
+    " NN",
+    " DN",
+    "D  "
+  ],
+  "result":{
+    "count": 1,
+    "id": "minecraft:trident"
+  }
+}

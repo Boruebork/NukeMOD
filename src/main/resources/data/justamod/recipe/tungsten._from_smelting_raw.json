@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smelting",
+  "category": "misc",
+  "cookingtime": 250,
+  "experience": 0.9,
+  "group": "titanium",
+  "ingredient": {
+    "item": "justamod:raw_tungsten"
+  },
+  "result": {
+    "id": "justamod:tungsten_ingot"
+  }
+}

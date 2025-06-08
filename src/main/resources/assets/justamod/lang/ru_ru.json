@@ -1,0 +1,36 @@
+{
+  "item.justamod.titanium": "Слиток Титана",
+  "item.justamod.raw_titanium": "Сырой Титан",
+  "item.justamod.neptunium": "Слиток Нептуния",
+  "item.justamod.diamond_rod": "Алмазный Стержень",
+  "item.justamod.tungsten_ingot": "Вольфрамовый Слиток",
+  "item.justamod.raw_tungsten": "Сырой Вольфрам",
+  "item.justamod.netherite_rod": "Титановый Стержень",
+  "item.justamod.rare_dust": "Редкая пыль",
+  "item.justamod.gear": "Шестерня",
+  "item.justamod.dirty_rare_dust": "Грязная Редкая Пыль",
+  "item.justamod.uranium_dust": "Урановая Пыль",
+
+  "item.justamod.polisher": "Полировщик",
+
+  "block.justamod.titanium_block": "Блок Титана",
+  "block.justamod.titanium_ore": "Титановая Руда",
+  "block.justamod.deepslate_titanium_ore": "Сланцевая Титановая Руда",
+  "block.justamod.tungsten_ore": "Вольфрамовая Руда",
+  "block.justamod.deepslate_tungsten_ore": "Сланцевая Вольфрамовая Руда",
+  "block.justamod.uranium_ore": "Урановая Руда",
+  "block.justamod.deepslate_uranium_ore": "Сланцевая Урановая Руда",
+
+  "advancments.justamod.obtain_titanium.title": "Тяжелый Металл",
+  "advancments.justamod.obtain_titanium.description": "приобретите Титановый Слиток",
+  "advancments.justamod.start.title": "Просто МОД",
+  "advancments.justamod.start.description": "Начнём приключения с модом!!",
+
+  "creativetab.justamod.just_a_tab": "просто МОД Элементы",
+  "creativetab.justamod.just_a_bloc_tab": "Просто МОД Блоки",
+  "creativetab.justamod.machine_tab": "Машины",
+
+  "advancements.justamod.root.title": "Just a MOD",
+  "advancements.justamod.root.description": "Это просто Мод, или нет??"
+
+}

@@ -1,0 +1,14 @@
+on structures
+    Template Pools:
+        are used for collective structures that contain multiply parts like:
+        villages, ancient cities and even pillager outposts!
+        List of All template pool structures:
+            Ancient City
+            Bastion Remnant
+            Villages
+            Pillager Outpost
+            Trail Ruins
+            Trial Chambers
+        To make a template pool, inside template_pool folder, a folder is creating
+        having a name of a structure which it is dedecated to. For ex: pillager_outpost
+        Inside the created folder different json files a created to specify collective spawns.

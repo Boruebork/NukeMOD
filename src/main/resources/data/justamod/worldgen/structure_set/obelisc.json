@@ -1,0 +1,16 @@
+{
+  "structures": [
+    {
+      "structure": "justamod:obelisc",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 7,
+    "separation": 5,
+    "spread_type": "linear",
+    "salt": 12343512,
+    "frequency": 0.86
+  }
+}
