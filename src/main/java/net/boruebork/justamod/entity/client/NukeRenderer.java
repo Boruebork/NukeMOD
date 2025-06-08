@@ -7,6 +7,7 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
@@ -22,6 +23,14 @@ public class NukeRenderer<T extends NukeEntity> extends EntityRenderer<T>{
 
     @Override
     public void render(T p_entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        poseStack.pushPose();
+        this.model.renderToBuffer(
+                poseStack,
+                bufferSource.getBuffer(this.model.renderType(this.getTextureLocation(p_entity))),
+                packedLight,
+                OverlayTexture.NO_OVERLAY
+        );
+        poseStack.popPose();
         super.render(p_entity, entityYaw, partialTick, poseStack, bufferSource, packedLight);
     }
 
