@@ -19,7 +19,7 @@ public class ModEntities {
 
     public static final Supplier<EntityType<NukeEntity>> NUKE =
             ENTITY_TYPES.register("nuke", () -> EntityType.Builder.of(NukeEntity::new, MobCategory.MISC)
-                    .sized(0.75f, 0.35f)
+                    .sized(0.75f*2, 0.35f*2)
                     .build("nuke"));
 
 
