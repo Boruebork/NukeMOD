@@ -11,20 +11,21 @@ import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 
 public class NukeEntity extends Entity {
-    public Vec2 rotation = new Vec2(36, 67);
-    public Vec3 moveTo = Vec3.directionFromRotation(rotation);
+    public Vec2 rotation = new Vec2(-90, 0);;
+    public Vec3 moveTo;
     private float FPS = Minecraft.getInstance().getFps();
     private float deltaTime;
     private final float speed = 6;
+    private final float yTop = 250;
 
     public NukeEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
-
     @Override
     public void tick() {
         FPS = Minecraft.getInstance().getFps();
         deltaTime = 1 / FPS;
+        moveTo = Vec3.directionFromRotation(rotation);
         if (!level().isClientSide()) {
             this.setRot(rotation.y, rotation.x);
             this.move(MoverType.SELF, new Vec3(
@@ -32,13 +33,19 @@ public class NukeEntity extends Entity {
                     moveTo.y * deltaTime * speed,
                     moveTo.z * deltaTime * speed
             ));
-            if (this.isColliding(getOnPos(), getBlockStateOn())){
+            if (position().y >= yTop){
+               rotation = new Vec2(90, rotation.y);
             }
         }
 
     }
     @Override
     public boolean isNoGravity() {
+        return true;
+    }
+
+    @Override
+    public boolean shouldRender(double x, double y, double z) {
         return true;
     }
 
