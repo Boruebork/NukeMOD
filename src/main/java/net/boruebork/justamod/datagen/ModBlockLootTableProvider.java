@@ -47,9 +47,9 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         add(ModBlocks.DEEPSLATE_TUNGSTEN_ORE.get(),
                 block -> createOreDrop(ModBlocks.DEEPSLATE_TUNGSTEN_ORE.get(), ModItems.RAW_TUNGSTEN.get()));
         add(ModBlocks.RARE_ORE.get(),
-                block -> createMultipleOreDrops(ModBlocks.RARE_ORE.get(), ModItems.RARE_DUST.get(), 2, 4));
+                block -> createMultipleOreDrops(ModBlocks.RARE_ORE.get(), ModItems.DIRTY_RARE_DUST.get(), 2, 4));
         add(ModBlocks.DEEPSLATE_RARE_ORE.get(),
-                block -> createMultipleOreDrops(ModBlocks.DEEPSLATE_RARE_ORE.get(), ModItems.RARE_DUST.get(), 2, 4));
+                block -> createMultipleOreDrops(ModBlocks.DEEPSLATE_RARE_ORE.get(), ModItems.DIRTY_RARE_DUST.get(), 2, 4));
 
 
     }
