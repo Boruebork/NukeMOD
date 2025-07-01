@@ -2,6 +2,7 @@ package net.boruebork.justamod.block.custom;
 
 import com.mojang.serialization.MapCodec;
 import net.boruebork.justamod.block.entity.EnricherBlockEntity;
+import net.boruebork.justamod.block.entity.LauncherBlockEntity;
 import net.boruebork.justamod.block.entity.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -22,49 +23,42 @@ import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class UraniumEnrichmentBlock extends BaseEntityBlock {
-    public static final MapCodec<UraniumEnrichmentBlock> CODEC = simpleCodec(UraniumEnrichmentBlock::new);
-
-    public UraniumEnrichmentBlock(Properties properties) {
+public class LauhcnerBlock extends BaseEntityBlock {
+    public static final MapCodec<LauhcnerBlock> CODEC = simpleCodec(LauhcnerBlock::new);
+    public LauhcnerBlock(Properties properties) {
         super(properties);
     }
 
     @Override
-    protected @NotNull MapCodec<? extends BaseEntityBlock> codec() {
+    @NotNull
+    protected MapCodec<? extends BaseEntityBlock> codec() {
         return CODEC;
     }
-
-    @Override
-    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return new EnricherBlockEntity(blockPos, blockState);
-    }
-
     @Override
     protected RenderShape getRenderShape(BlockState state) {
         return RenderShape.MODEL;
     }
-
-
+    @Override
+    public @Nullable BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
+        return new LauncherBlockEntity(blockPos, blockState);
+    }
     @Override
     public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pIsMoving) {
         if (pState.getBlock() != pNewState.getBlock()) {
             BlockEntity blockEntity = pLevel.getBlockEntity(pPos);
-            if (blockEntity instanceof EnricherBlockEntity enricherBlockEntity) {
-                enricherBlockEntity.drops();
+            if (blockEntity instanceof LauncherBlockEntity launcherBlockEntity) {
+                launcherBlockEntity.drops();
             }
         }
 
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving);
     }
-
-
     @Override
-    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos,
-                                              Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
+    protected ItemInteractionResult useItemOn(ItemStack pStack, BlockState pState, Level pLevel, BlockPos pPos, Player pPlayer, InteractionHand pHand, BlockHitResult pHitResult) {
         if (!pLevel.isClientSide()) {
             BlockEntity entity = pLevel.getBlockEntity(pPos);
-            if(entity instanceof EnricherBlockEntity enricherBlockEntity) {
-                ((ServerPlayer) pPlayer).openMenu(new SimpleMenuProvider(enricherBlockEntity, Component.literal("Uranium Enricher")), pPos);
+            if(entity instanceof LauncherBlockEntity launcherBlockEntity) {
+                ((ServerPlayer) pPlayer).openMenu(new SimpleMenuProvider(launcherBlockEntity, Component.literal("Nuke Launcher")), pPos);
             } else {
                 throw new IllegalStateException("Our Container provider is missing!");
             }
@@ -72,14 +66,12 @@ public class UraniumEnrichmentBlock extends BaseEntityBlock {
 
         return ItemInteractionResult.sidedSuccess(pLevel.isClientSide());
     }
-
-
     @Override
     public @Nullable <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> blockEntityType) {
         if (level.isClientSide()) {
             return null;
         }
-        return createTickerHelper(blockEntityType, ModBlockEntities.URANIUM_ENRICHER_BE.get(),
+        return createTickerHelper(blockEntityType, ModBlockEntities.LAUNCHER_BE.get(),
                 (level1, blockPos, blockState, blockEntity) -> blockEntity.tick(level, blockPos, blockState));
     }
 }

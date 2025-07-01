@@ -43,9 +43,6 @@ public class ModItems {
     public static final DeferredItem<Item> NUCLEAR_WARHEAD = ITEMS.register("nuclear_warhead",
             () -> new Item(new Item.Properties()));
 
-
-
-
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
     }

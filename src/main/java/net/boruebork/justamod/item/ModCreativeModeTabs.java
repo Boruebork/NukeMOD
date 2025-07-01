@@ -56,6 +56,7 @@ public class ModCreativeModeTabs {
                         output.accept(ModBlocks.RARE_DUST_BLOCK);
                         output.accept(ModBlocks.MODERN_ALLOY_BLOCK);
                         output.accept(ModBlocks.ENRICHER);
+                        output.accept(ModBlocks.LAUNCHER);
 
                     })
                     .build());

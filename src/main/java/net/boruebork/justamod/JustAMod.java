@@ -8,6 +8,7 @@ import net.boruebork.justamod.entity.client.NukeRenderer;
 import net.boruebork.justamod.item.ModCreativeModeTabs;
 import net.boruebork.justamod.item.ModItems;
 import net.boruebork.justamod.screen.ModMenuTypes;
+import net.boruebork.justamod.screen.custom.LauncherScreen;
 import net.boruebork.justamod.screen.custom.UraniumEnricherScreen;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
@@ -86,6 +87,7 @@ public class JustAMod
         public static void onClientSetup(RegisterMenuScreensEvent event) {
             // For NeoForge 1.21.1
             event.register(ModMenuTypes.URANIUM_ENRICHER_MENU.get(), UraniumEnricherScreen::new);
+            event.register(ModMenuTypes.LAUNCHER_MENU.get(), LauncherScreen::new);
             EntityRenderers.register(ModEntities.NUKE.get(), NukeRenderer::new);
         }
     }

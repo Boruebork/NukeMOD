@@ -1,6 +1,7 @@
 package net.boruebork.justamod.block;
 
 import net.boruebork.justamod.JustAMod;
+import net.boruebork.justamod.block.custom.LauhcnerBlock;
 import net.boruebork.justamod.block.custom.UraniumEnrichmentBlock;
 import net.boruebork.justamod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -66,6 +67,11 @@ public class ModBlocks {
     public static final DeferredBlock<Block> RARE_DUST_BLOCK = registerBlock("rare_dust_block",
             () -> new Block(BlockBehaviour.Properties.of()
                     .strength(4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
+    public static final DeferredBlock<Block> LAUNCHER = registerBlock("launcher",
+            () -> new LauhcnerBlock(BlockBehaviour.Properties.of()
+                    .strength(3f)
+                    .sound(SoundType.NETHERITE_BLOCK)
+            ));
 
 
 
