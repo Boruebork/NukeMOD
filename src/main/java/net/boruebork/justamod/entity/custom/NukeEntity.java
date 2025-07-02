@@ -37,7 +37,23 @@ public class NukeEntity extends Entity {
                rotation = new Vec2(90, rotation.y);
             }
         }
+        if (this.verticalCollisionBelow) {
+            explode();
+        }
 
+    }
+    private void explode(){
+        if (!this.level().isClientSide) {
+            this.level().explode(
+                    this,
+                    this.getX(),
+                    this.getY(),
+                    this.getZ(),
+                    17.0f, // Explosion radius
+                    Level.ExplosionInteraction.TNT
+            );
+            this.discard(); // Remove the entity after explosion
+        }
     }
     @Override
     public boolean isNoGravity() {

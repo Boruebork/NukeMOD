@@ -17,9 +17,6 @@ public class ModBlockEntities {
     public static final Supplier<BlockEntityType<EnricherBlockEntity>> URANIUM_ENRICHER_BE =
             BLOCK_ENTITIES.register("uranium_enricherr_be", () -> BlockEntityType.Builder.of(
                     EnricherBlockEntity::new, ModBlocks.ENRICHER.get()).build(null));
-    public static final Supplier<BlockEntityType<LauncherBlockEntity>> LAUNCHER_BE =
-            BLOCK_ENTITIES.register("launcher_be", () -> BlockEntityType.Builder.of(
-                    LauncherBlockEntity::new, ModBlocks.LAUNCHER.get()).build(null));
 
 
     public static void register(IEventBus eventBus) {

@@ -1,7 +1,6 @@
 package net.boruebork.justamod.screen;
 
 import net.boruebork.justamod.JustAMod;
-import net.boruebork.justamod.screen.custom.LauncherMenu;
 import net.boruebork.justamod.screen.custom.UraniumEnricherMenu;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -18,9 +17,6 @@ public class ModMenuTypes {
 
     public static final DeferredHolder<MenuType<?>, MenuType<UraniumEnricherMenu>> URANIUM_ENRICHER_MENU =
             registerMenuType("uranium_enricher_menu", UraniumEnricherMenu::new);
-    public static final DeferredHolder<MenuType<?>, MenuType<LauncherMenu>> LAUNCHER_MENU =
-            registerMenuType("launcher_menu", LauncherMenu::new);
-
     private static <T extends AbstractContainerMenu>DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(String name,
                                                                                                               IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IMenuTypeExtension.create(factory));
