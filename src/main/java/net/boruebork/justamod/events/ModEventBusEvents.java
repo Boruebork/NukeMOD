@@ -2,6 +2,8 @@ package net.boruebork.justamod.events;
 
 import net.boruebork.justamod.JustAMod;
 import net.boruebork.justamod.entity.ModEntities;
+import net.boruebork.justamod.entity.client.HIMARSModel;
+import net.boruebork.justamod.entity.client.HIMARSRenderer;
 import net.boruebork.justamod.entity.client.NukeModel;
 import net.boruebork.justamod.entity.client.NukeRenderer;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,10 +15,12 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerLayers(EntityRenderersEvent.RegisterLayerDefinitions event){
         event.registerLayerDefinition(NukeModel.LAYER_LOCATION, NukeModel::createBodyLayer);
+        event.registerLayerDefinition(HIMARSModel.LAYER_LOCATION, HIMARSModel::createBodyLayer);
 
     }
     @SubscribeEvent
     public static void entityRender(EntityRenderersEvent.RegisterRenderers event){
         event.registerEntityRenderer(ModEntities.NUKE.get(), NukeRenderer::new);
+        event.registerEntityRenderer(ModEntities.HIMARS.get(), HIMARSRenderer::new);
     }
 }

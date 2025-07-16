@@ -20,7 +20,6 @@ public class RadiationEffect extends MobEffect{
         Registry<DamageType> dTypeReg = livingEntity.damageSources().damageTypes;
         Holder.Reference<DamageType> dType = dTypeReg.getHolder(NeoForgeMod.POISON_DAMAGE).orElse(dTypeReg.getHolderOrThrow(DamageTypes.MAGIC));
         livingEntity.hurt(new DamageSource(dType), 1.0F);
-
         return true;
     }
 

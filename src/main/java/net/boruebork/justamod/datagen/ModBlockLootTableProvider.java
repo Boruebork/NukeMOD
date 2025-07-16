@@ -34,6 +34,7 @@ public class ModBlockLootTableProvider extends BlockLootSubProvider {
         dropSelf(ModBlocks.MODERN_ALLOY_BLOCK.get());
         dropSelf(ModBlocks.ENRICHER.get());
         dropSelf(ModBlocks.URANIUM_BLOCK.get());
+        dropSelf(ModBlocks.HIMARS_SPAWNER.get());
         add(ModBlocks.TITANIUM_ORE.get(),
         block -> createOreDrop(ModBlocks.TITANIUM_ORE.get(), ModItems.RAW_TITANIUM.get())); //ORE DROPS
         add(ModBlocks.TUNGSTEN_ORE.get(),

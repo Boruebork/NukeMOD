@@ -1,6 +1,7 @@
 package net.boruebork.justamod.entity;
 
 import net.boruebork.justamod.JustAMod;
+import net.boruebork.justamod.entity.custom.HIMARSMob;
 import net.boruebork.justamod.entity.custom.NukeEntity;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -21,6 +22,10 @@ public class ModEntities {
             ENTITY_TYPES.register("nuke", () -> EntityType.Builder.of(NukeEntity::new, MobCategory.MISC)
                     .sized(0.75f*2, 0.35f*2)
                     .build("nuke"));
+    public static final Supplier<EntityType<HIMARSMob>> HIMARS =
+            ENTITY_TYPES.register("himars", () -> EntityType.Builder.of(HIMARSMob::new, MobCategory.CREATURE)
+                    .sized(1.4f, 1.5f)
+                    .build("himars"));
 
 
     public static void register(IEventBus eventBus){

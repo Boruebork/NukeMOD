@@ -3,6 +3,7 @@ package net.boruebork.justamod.item;
 import net.boruebork.justamod.JustAMod;
 import net.boruebork.justamod.entity.ModEntities;
 import net.boruebork.justamod.item.custom.PolisherItem;
+import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -42,6 +43,8 @@ public class ModItems {
             () -> new Item(new Item.Properties()));
     public static final DeferredItem<Item> NUCLEAR_WARHEAD = ITEMS.register("nuclear_warhead",
             () -> new Item(new Item.Properties()));
+    /*public static final DeferredItem<Item> OIL_BUCKET = ITEMS.register("oil_bucket",
+            ()-> new BucketItem());*/
 
     public static void register(IEventBus eventBus) {
         ITEMS.register(eventBus);
