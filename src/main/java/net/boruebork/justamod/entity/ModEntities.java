@@ -23,8 +23,8 @@ public class ModEntities {
                     .sized(0.75f*2, 0.35f*2)
                     .build("nuke"));
     public static final Supplier<EntityType<HIMARSMob>> HIMARS =
-            ENTITY_TYPES.register("himars", () -> EntityType.Builder.of(HIMARSMob::new, MobCategory.CREATURE)
-                    .sized(1.4f, 1.5f)
+            ENTITY_TYPES.register("himars", () -> EntityType.Builder.of(HIMARSMob::new, MobCategory.MISC)
+                    .sized(1f, 1f)
                     .build("himars"));
 
 

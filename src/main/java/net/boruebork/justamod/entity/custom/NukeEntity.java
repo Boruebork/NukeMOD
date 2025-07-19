@@ -17,7 +17,6 @@ public class NukeEntity extends Entity {
     public Vec2 rotation = new Vec2(-90, 0);
     ;
     public Vec3 moveTo;
-    private float FPS = Minecraft.getInstance().getFps();
     private float deltaTime;
     private final float speed = 13;
     private final float yTop = 250;
@@ -28,8 +27,7 @@ public class NukeEntity extends Entity {
 
     @Override
     public void tick() {
-        FPS = Minecraft.getInstance().getFps();
-        deltaTime = 1 / FPS;
+        deltaTime = 0.05f;
         moveTo = Vec3.directionFromRotation(rotation);
         if (!level().isClientSide()) {
             this.setRot(rotation.y, rotation.x);
@@ -42,7 +40,7 @@ public class NukeEntity extends Entity {
                 rotation = new Vec2(90, rotation.y);
             }
         }
-        if (this.verticalCollisionBelow) {
+        if (this.verticalCollisionBelow || this.verticalCollision) {
             explode();
         }
 
