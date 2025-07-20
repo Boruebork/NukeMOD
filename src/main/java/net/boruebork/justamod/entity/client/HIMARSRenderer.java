@@ -29,7 +29,8 @@ public class HIMARSRenderer<T extends HIMARSMob> extends EntityRenderer<T>{
     @Override
     public void render(T p_entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         poseStack.pushPose();
-        Vec3 root = new Vec3(1, 1.2f, -0.9f);
+        Vec3 root = new Vec3(1, -1.2f, -0.9f);
+        double c = Math.sqrt(root.x*root.x + root.y*root.y);
         poseStack.scale(4, 4, 4);
         poseStack.mulPose(Axis.XP.rotationDegrees(180)); // Fixed rotation
         poseStack.rotateAround(Axis.YP.rotationDegrees(p_entity.getYRot()), (float) root.x,(float) root.y, (float) root.z);

@@ -42,6 +42,7 @@ public class HIMARSMob extends LivingEntity {
     private final int maxRockets = 4;
     private int currentRockets;
     public Player playerRider;
+    private boolean reloading;
 
 
     public HIMARSMob(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -51,6 +52,7 @@ public class HIMARSMob extends LivingEntity {
         this.playerRider = (Player) this.getFirstPassenger();
         this.currentRockets = 0;
         this.dispawnTime = maxDispawnTime;
+        this.reloading  = false;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class HIMARSMob extends LivingEntity {
     @Override
     public void travel(Vec3 travelVector) {
         Options Input = Minecraft.getInstance().options;
-        if (!this.level().isClientSide){
+        if (this.level().isClientSide){
             if (this.isControlled){
                 travelVector = Vec3.directionFromRotation(new Vec2(rotX, rotY));
                 if (!Input.keyAttack.isDown()){
@@ -90,12 +92,15 @@ public class HIMARSMob extends LivingEntity {
                 if (Input.keyLeft.isDown()){
                     this.rotY -= 3;
                 }
-                this.move(MoverType.SELF, new Vec3(
+
+            }
+        }else {
+            if (this.isControlled) {
+                this.move(MoverType.PLAYER, new Vec3(
                         travelVector.x * deltaTime * speed,
                         travelVector.y * deltaTime * speed,
-                        travelVector.z * deltaTime *speed
+                        travelVector.z * deltaTime * speed
                 ));
-
             }
         }
         super.travel(travelVector);
@@ -114,26 +119,34 @@ public class HIMARSMob extends LivingEntity {
             }
             if (this.speed < minSpeed){
                 this.speed = minSpeed;
+            }else {
+                if (ModKeyBinds.RELOAD_KEY.isDown()) {
+                    this.reloading = true;
+                }else {
+                    this.reloading = false;
+                }
             }
-            if (ModKeyBinds.RELOAD_KEY.isDown()){
-                if (this.playerRider != null && this.currentRockets < maxRockets){
+        }else {
+            if (this.reloading){
+                if (this.playerRider != null && this.currentRockets < maxRockets) {
                     Inventory playerInv = this.playerRider.getInventory();
                     ItemStack rocket = ModItems.NUCLEAR_WARHEAD.toStack();
                     this.playerRider.sendSystemMessage(Component.literal("Missiles Reloading from Inventory!"));
-                    for (int i = 0; i < 36; ++i){
+                    for (int i = 0; i < 36; ++i) {
                         if (this.currentRockets >= maxRockets) {
                             break;
-                        }else {
+                        } else {
                             reloadRockets(playerInv, i, rocket);
                         }
                     }
                     this.playerRider.sendSystemMessage(Component.literal(String.valueOf(this.currentRockets)));
 
-                }else {
+                } else {
                     assert this.playerRider != null;
                     this.playerRider.sendSystemMessage(Component.literal("Cannot reload missiles or the current Driver is null"));
                 }
             }
+
         }
         super.tick();
     }
