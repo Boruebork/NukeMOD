@@ -42,6 +42,5 @@ public class NukeModel<T extends NukeEntity> extends EntityModel<T> {
 
     @Override
     public void setupAnim(T t, float v, float v1, float v2, float v3, float v4) {
-
     }
 }

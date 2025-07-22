@@ -94,4 +94,3 @@ public class NukeEntity extends Entity {
         return super.showVehicleHealth();
     }
 }
-

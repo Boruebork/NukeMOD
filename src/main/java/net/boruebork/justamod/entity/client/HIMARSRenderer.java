@@ -29,12 +29,12 @@ public class HIMARSRenderer<T extends HIMARSMob> extends EntityRenderer<T>{
     @Override
     public void render(T p_entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
         poseStack.pushPose();
-        Vec3 root = new Vec3(1, -1.2f, -0.9f);
+        Vec3 root = new Vec3(-1, -1.2f, 0.5f);
         double c = Math.sqrt(root.x*root.x + root.y*root.y);
         poseStack.scale(4, 4, 4);
         poseStack.mulPose(Axis.XP.rotationDegrees(180)); // Fixed rotation
         poseStack.rotateAround(Axis.YP.rotationDegrees(p_entity.getYRot()), (float) root.x,(float) root.y, (float) root.z);
-        poseStack.translate(root.x, root.y, root.z);
+        poseStack.translate(0, root.y, 0);
         this.model.renderToBuffer(
                 poseStack,
                 bufferSource.getBuffer(this.model.renderType(this.getTextureLocation(p_entity))),
@@ -51,8 +51,8 @@ public class HIMARSRenderer<T extends HIMARSMob> extends EntityRenderer<T>{
         return ResourceLocation.fromNamespaceAndPath(JustAMod.MOD_ID, "textures/entity/himars.png");
     }
 
-    /*@Override
+    @Override
     public boolean shouldRender(T livingEntity, Frustum camera, double camX, double camY, double camZ) {
         return true;
-    }*/
+    }
 }

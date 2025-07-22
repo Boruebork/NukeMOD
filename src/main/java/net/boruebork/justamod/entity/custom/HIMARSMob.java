@@ -22,6 +22,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -67,48 +68,59 @@ public class HIMARSMob extends LivingEntity {
     @Override
     public void travel(Vec3 travelVector) {
         Options Input = Minecraft.getInstance().options;
-        if (this.level().isClientSide){
-            if (this.isControlled){
-                travelVector = Vec3.directionFromRotation(new Vec2(rotX, rotY));
-                if (!Input.keyAttack.isDown()){
-                    this.rocketlaunched = false;
-                }
-                if (Input.keyAttack.isDown() && !this.rocketlaunched && this.currentRockets > 0){
-                    EntityType<?> nuke = ModEntities.NUKE.get();
-                    this.rocketlaunched = true;
-                    this.currentRockets--;
-                    this.rotationOfSpawnedNuke = this.getFirstPassenger().getRotationVector();
-                    nuke.spawn((ServerLevel) this.level(), this.getOnPos(), MobSpawnType.TRIGGERED);
-                }
-                if (Input.keyUp.isDown()){
-                    this.speed += 0.1f;
-                }
-                if (Input.keyDown.isDown()){
-                    this.speed -=  0.1f;
-                }
-                if (Input.keyRight.isDown()){
-                    this.rotY += 3;
-                }
-                if (Input.keyLeft.isDown()){
-                    this.rotY -= 3;
-                }
+        if (this.isVehicle() && this.getControllingPassenger() instanceof Player) {
+            LivingEntity rider = this.getControllingPassenger();
 
+            // Copy rider rotation (with optional smoothing)
+            this.setYRot(rider.getYRot());
+            this.yBodyRot = this.getYRot();
+            this.setXRot(rider.getXRot() * 0.5f);
+            float xV = rider.xxa;
+            float YV = rider.yya;
+            float zV = rider.zza;
+
+            // Calculate movement (uses vanilla input values)
+            float speed = 0.25f * this.getSpeed();
+            this.setSpeed(speed);
+            if (!Input.keyAttack.isDown()) {
+                this.rocketlaunched = false;
             }
-        }else {
-            if (this.isControlled) {
-                this.move(MoverType.PLAYER, new Vec3(
-                        travelVector.x * deltaTime * speed,
-                        travelVector.y * deltaTime * speed,
-                        travelVector.z * deltaTime * speed
-                ));
+            if (Input.keyAttack.isDown() && !this.rocketlaunched && this.currentRockets > 0) {
+                EntityType<?> nuke = ModEntities.NUKE.get();
+                this.rocketlaunched = true;
+                this.currentRockets--;
+                this.rotationOfSpawnedNuke = this.getFirstPassenger().getRotationVector();
+                nuke.spawn((ServerLevel) this.level(), this.getOnPos(), MobSpawnType.TRIGGERED);
             }
-        }
+            if (this.isControlledByLocalInstance()) {
+                super.travel(new Vec3(xV*0.05f, YV*0.05f , zV*0.05f));
+            }
+
+        }// Default movement when not ridden
         super.travel(travelVector);
+
+    }
+
+    @Override
+    public @Nullable LivingEntity getControllingPassenger() {
+        return (LivingEntity) this.getFirstPassenger();
+    }
+
+    @Override
+    protected Vec3 getRiddenInput(Player player, Vec3 travelVector) {
+        return new Vec3((double)0.0F, (double)0.0F, (double)1.0F);
+    }
+
+    @Override
+    protected float getRiddenSpeed(Player player) {
+        return (float)(this.getAttributeValue(Attributes.MOVEMENT_SPEED));
+
     }
 
     @Override
     public void tick() {
         if (!this.level().isClientSide){
+            //Server
             dispawnWhenNotRidedForTooLong();
             if (this.getHealth() <= 0.5f){
                 explode(6);
@@ -120,13 +132,8 @@ public class HIMARSMob extends LivingEntity {
             if (this.speed < minSpeed){
                 this.speed = minSpeed;
             }else {
-                if (ModKeyBinds.RELOAD_KEY.isDown()) {
-                    this.reloading = true;
-                }else {
-                    this.reloading = false;
-                }
+
             }
-        }else {
             if (this.reloading){
                 if (this.playerRider != null && this.currentRockets < maxRockets) {
                     Inventory playerInv = this.playerRider.getInventory();
@@ -145,6 +152,13 @@ public class HIMARSMob extends LivingEntity {
                     assert this.playerRider != null;
                     this.playerRider.sendSystemMessage(Component.literal("Cannot reload missiles or the current Driver is null"));
                 }
+            }
+        }else {
+            //Client
+            if (ModKeyBinds.RELOAD_KEY.isDown()) {
+                this.reloading = true;
+            }else {
+                this.reloading = false;
             }
 
         }
@@ -198,7 +212,7 @@ public class HIMARSMob extends LivingEntity {
 
     @Override
     public HumanoidArm getMainArm() {
-        return null;
+        return HumanoidArm.RIGHT;
     }
     public static AttributeSupplier.Builder createAttributesC(){
         return LivingEntity.createLivingAttributes()
@@ -242,5 +256,26 @@ public class HIMARSMob extends LivingEntity {
         tag.putInt("cr", this.currentRockets);
         tag.putFloat("speed", this.speed);
         return super.save(tag);
+    }
+
+    @Override
+    public Vec3 getPassengerRidingPosition(Entity entity) {
+        Vec3 offset = new Vec3(-1, 0.2f, 0.5f);
+        return offset;
+    }
+
+    /*@Override
+    protected Vec3 getPassengerAttachmentPoint(Entity entity, EntityDimensions dimensions, float partialTick) {
+        Vec3 offset = new Vec3(-1, -1.2f, 0.5f);
+        double c = Math.sqrt(offset.x*offset.x + offset.z * offset.z);
+        double offsetAngle = Math.atan(offset.x/offset.z);
+        double dx = Math.sin(Math.toRadians(this.getYRot() + offsetAngle))*c;
+        double dz = Math.cos(Math.toRadians(this.getYRot() + offsetAngle))*c;
+        return new Vec3(dx, offset.y, dz);
+    }
+*/
+    @Override
+    protected boolean canRide(Entity vehicle) {
+        return true;
     }
 }

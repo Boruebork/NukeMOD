@@ -2,6 +2,7 @@ package net.boruebork.justamod.block;
 
 import net.boruebork.justamod.JustAMod;
 import net.boruebork.justamod.block.custom.HIMARSSpwaner;
+import net.boruebork.justamod.block.custom.NukeSpawner;
 import net.boruebork.justamod.block.custom.UraniumEnrichmentBlock;
 import net.boruebork.justamod.item.ModItems;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -69,6 +70,8 @@ public class ModBlocks {
                     .strength(4f).requiresCorrectToolForDrops().sound(SoundType.NETHERITE_BLOCK)));
     public static final DeferredBlock<Block> HIMARS_SPAWNER = registerBlock("himars_spawner",
             () -> new HIMARSSpwaner(BlockBehaviour.Properties.of().noOcclusion()));
+    public static final DeferredBlock<Block> NUKE_SPAWNER = registerBlock("nuke_spawner",
+            ()-> new NukeSpawner(BlockBehaviour.Properties.of()));
 
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {

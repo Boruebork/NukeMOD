@@ -10,9 +10,12 @@ import net.boruebork.justamod.entity.custom.HIMARSMob;
 import net.boruebork.justamod.keybyinds.ModKeyBinds;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 @EventBusSubscriber(modid = JustAMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class ModEventBusEvents {
@@ -34,5 +37,16 @@ public class ModEventBusEvents {
     @SubscribeEvent
     public static void registerKeyBindings(RegisterKeyMappingsEvent event){
         ModKeyBinds.register(event);
+    }
+    @SubscribeEvent // on the game event bus only on the physical client
+    public static void onClientTick(ClientTickEvent.Post event) {
+        while (ModKeyBinds.RELOAD_KEY.consumeClick()) {
+            // Execute logic to perform on click here
+        }
+    }
+    @SubscribeEvent // on the mod event bus
+    public static void register(final RegisterPayloadHandlersEvent event) {
+        // Sets the current network version
+        final PayloadRegistrar registrar = event.registrar("1");
     }
 }
